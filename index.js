@@ -23,10 +23,8 @@ let currentSong = null;
 const setCurrentSong = (song) => {
     currentSong = song;
 
-
     io.emit("current", currentSong);
     io.emit("queue_list", queue);
-
 
     if (!!currentSong) {
         currentSong.timeStarted = Date.now();
@@ -38,7 +36,7 @@ const setCurrentSong = (song) => {
 }
 
 io.on("connection", (socket) => {
-    socket.identity = {};
+    socket.identity = null;
 
     socket.on("queue", async (link) => {
         queueProvider.addSong(socket.identity, link)
@@ -49,6 +47,12 @@ io.on("connection", (socket) => {
                 io.emit("queue_list", queue);
             })
             .catch((err) => socket.emit("queue_error", err));
+    });
+
+    socket.on("auth", async (auth) => {
+        // TODO: Authenticate the user before forwarding their identity.
+        socket.identity = auth;
+        socket.emit("auth_success");
     });
 
     socket.emit("current", currentSong);

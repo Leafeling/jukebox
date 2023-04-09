@@ -43,6 +43,7 @@ const loadConfig = async () => {
 }
 
 let queueSong;
+let identity;
 const connectSocket = async () => {
     const socket = io();
 
@@ -56,7 +57,7 @@ const connectSocket = async () => {
         document.querySelector("input[name='link']").value = "";
     });
     socket.on("queue_error", (err) => {
-        console.error("Error while queueing song: ", err);
+        console.error("Error while queueing song:", err);
     });
     socket.on("queue_list", (list) => {
         console.log(list);
@@ -78,6 +79,13 @@ const connectSocket = async () => {
     });
 
     queueSong = (link) => socket.emit("queue", link);
+    updateAuth = (auth) => {
+        identity = auth;
+        socket.emit("auth", auth);
+    
+        if (!identity) document.querySelectorAll(".__queue-form").forEach((form) => form.classList.add("hidden"));
+        if (!!identity) document.querySelectorAll(".__queue-form").forEach((form) => form.classList.remove("hidden"));
+    }
 }
 
 const changeSong = async (song) => {
@@ -142,4 +150,5 @@ window.addEventListener("load", async () => {
     await loadConfig();
     await loadPlayer(cfg.provider);
     await connectSocket();
+    await updateAuth({ "username": "debug" });
 });

@@ -141,6 +141,10 @@ main {
     gap: 1em;
 }
 
+.queue-list form.hidden {
+    display: none;
+}
+
 .queue-list form input {
     flex: 1;
 }
