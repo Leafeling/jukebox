@@ -10,11 +10,14 @@
     width: 100svw;
     height: 100svh;
     background-color: var(--theme-background);
+    color: var(--theme-text);
 }
 
 header {
     width: 100%;
     height: 5em;
+    position: relative;
+    z-index: 100;
 }
 
 nav {
@@ -38,6 +41,116 @@ nav .nav-item > * {
 
 main {
     flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    margin: 5em;
+    gap: 5em;
+    position: relative;
+}
+
+.player-container {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2em;
+    overflow: hidden;
+    background-color: var(--theme-navbar);
+}
+
+#player {
+    flex: 1;
+    position: relative;
+}
+
+#player.hidden {
+    opacity: 0;
+}
+
+.queue-list {
+    width: 100%;
+    max-width: 0;
+    padding-left: 2em;
+
+    position: absolute;
+    top: 5em;
+    right: 0;
+    bottom: 3em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    overflow: hidden;
+    background-color: var(--theme-sidebar);
+
+    transition: max-width .3s ease;
+}
+
+.queue-list::before {
+    content: "Queue";
+    line-height: 32px;
+    font-size: 1em;
+    transform: rotate(-90deg) translateX(1em) translateY(-1.5em);
+    transform-origin: bottom right;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.queue-list:hover {
+    max-width: min(450px, 100vw - 2em);
+}
+
+.queue-list .__song-queue {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    overflow-y: auto;
+}
+
+.queue-list .song {
+    width: min(450px, 100vw - 2em);
+    height: 5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.queue-list .song h2 {
+    font-size: 1em;
+}
+
+.queue-list .song .requester {
+    font-size: .75em;
+}
+
+.queue-list .song img {
+    height: 100%;
+}
+
+.queue-list .song .info {
+    padding: 1em;
+}
+
+.queue-list form {
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    gap: 1em;
+}
+
+.queue-list form input {
+    flex: 1;
+}
+
+.queue-list form button {
+    width: 2em;
+    height: 2em;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 footer {
@@ -45,8 +158,11 @@ footer {
     padding: 0 1em;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background-color: var(--theme-navbar);
     color: var(--theme-text-light);
+    position: relative;
+    z-index: 100;
 }
 
 a {
