@@ -10,6 +10,7 @@
     width: 100svw;
     height: 100svh;
     background-color: var(--theme-background);
+    color: var(--theme-text);
 }
 
 header {
@@ -52,10 +53,16 @@ main {
     flex-direction: column;
     border-radius: 2em;
     overflow: hidden;
+    background-color: var(--theme-navbar);
 }
 
 #player {
     flex: 1;
+    position: relative;
+}
+
+#player.hidden {
+    opacity: 0;
 }
 
 footer {
