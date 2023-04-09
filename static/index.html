@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Jukebox</title>
         <link rel="stylesheet" href="/css/master.css">
+        <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
         <script src="/js/jukebox.js" defer></script>
     </head>
     <body>
@@ -19,7 +20,7 @@
             </header>
 
             <main>
-
+                <iframe id="player" src="https://www.youtube-nocookie.com/embed/?showinfo=0&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </main>
             
             <footer>

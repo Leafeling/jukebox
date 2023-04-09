@@ -40,6 +40,10 @@ main {
     flex: 1;
 }
 
+#player {
+    pointer-events: none;
+}
+
 footer {
     height: 3em;
     padding: 0 1em;
