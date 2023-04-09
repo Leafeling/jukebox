@@ -1,3 +1,8 @@
+let currentSong = {
+    id: "",
+    timeStarted: 0
+};
+
 const getProviderUrl = async (provider) => {
     switch (provider.toLowerCase()) {
         case "youtube": return "https://www.youtube.com/embed/$songId";
@@ -33,18 +38,18 @@ const loadConfig = async () => {
 
 const connectSocket = async () => {
     const socket = io();
+
+    socket.on("current", async (song) => {
+        await changeSong(song);
+    });
 }
 
-let songId = "";
-const changeSongId = async (id) => {
-    songId = id;
-    setPlayerSource(id);
-}
+const changeSong = async (song) => {
+    currentSong = song;
 
-const setPlayerSource = async (src) => {
-    if (!src) document.querySelector("#player").classList.add("hidden");
+    if (!currentSong) document.querySelector("#player").classList.add("hidden");
     else {
-        if (!!ytPlayer) ytPlayer.loadVideoById(src);
+        if (!!ytPlayer) ytPlayer.loadVideoById(song.id, (Date.now() - song.timeStarted) / 1000);
         document.querySelector("#player").classList.remove("hidden");
     }
 }
@@ -79,7 +84,7 @@ function onYouTubeIframeAPIReady() {
                 e.target.setVolume(100);
 
                 ytPlayer = e.target;
-                setPlayerSource(null);
+                changeSong(currentSong);
             }
         }
     })
