@@ -1,2 +1,4 @@
 ./config.json
 ./static/icon.png
+
+/node_modules
