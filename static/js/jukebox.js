@@ -64,7 +64,7 @@ const connectSocket = async () => {
         let html = "";
         for (var i = 0; i < list.length; i++) {
             html += `
-                <a class='song' href='https://youtu.be/${list[i].id}'>
+                <a class='song' target='_blank' href='https://youtu.be/${list[i].id}'>
                     <div>
                         <img src='${list[i].thumbnail}'>
                     </div>
@@ -73,9 +73,9 @@ const connectSocket = async () => {
                         <span class='requester'><b>Added by:</b> ${list[i].requestedBy}</span>
                     </div>
                 </a>`;
-    
-            document.querySelector(".__song-queue").innerHTML = html;
         }
+
+        document.querySelector(".__song-queue").innerHTML = html;
     });
 
     queueSong = (link) => socket.emit("queue", link);

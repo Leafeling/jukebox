@@ -1,11 +1,14 @@
 {
-    "name": "StarLAN Jukebox",
-    "icon": "/icon.png",
-    "logo": "/starlan-logo-white.png",
+    "name": "Jukebox",
+    "icon": "icon.png",
+    "logo": "logo.png",
+    "provider": "youtube",
+    "changeTitleToCurrent": true,
     "theme": {
         "background": "#131313",
         "navbar": "#232323",
         "text-light": "#666",
-        "text": "#fff"
+        "text": "#fff",
+        "sidebar": "#191919"
     }
 }

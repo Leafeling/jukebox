@@ -3,9 +3,9 @@ const { createServer } = require('http');
 
 let app = express();
 
-let port = 3000;
 let config = require("./config.json");
 require('dotenv').config();
+let port = process.env.JUKEBOX_PORT ?? 3000;
 
 app.use(express.static("./static/"));
 app.use(express.static("./assets/"));
