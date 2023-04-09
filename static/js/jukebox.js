@@ -10,6 +10,11 @@ const getProviderUrl = async (provider) => {
     }
 }
 
+const submitSong = (e) => {
+    e.preventDefault();
+    queueSong(e.target.link.value);
+}
+
 let cfg = {};
 const loadConfig = async () => {
     let response = await fetch("/config");
@@ -33,6 +38,7 @@ const loadConfig = async () => {
         document.body.style.setProperty("--theme-navbar", config.theme["navbar"]);
         document.body.style.setProperty("--theme-text-light", config.theme["text-light"]);
         document.body.style.setProperty("--theme-text", config.theme["text"]);
+        document.body.style.setProperty("--theme-sidebar", config.theme["sidebar"]);
     }
 }
 
@@ -44,9 +50,32 @@ const connectSocket = async () => {
         console.log(song);
         await changeSong(song);
     });
-    socket.on("queue_success", () => console.log("Succesfully queued song."));
-    socket.on("queue_error", (err) => console.error("Error while queuing song: ", err));
-    socket.on("queue_list", (list) => console.log(list));
+    socket.on("queue_success", () => {
+        console.log("Succesfully queued song.");
+
+        document.querySelector("input[name='link']").value = "";
+    });
+    socket.on("queue_error", (err) => {
+        console.error("Error while queueing song: ", err);
+    });
+    socket.on("queue_list", (list) => {
+        console.log(list);
+        let html = "";
+        for (var i = 0; i < list.length; i++) {
+            html += `
+                <a class='song' href='https://youtu.be/${list[i].id}'>
+                    <div>
+                        <img src='${list[i].thumbnail}'>
+                    </div>
+                    <div class='info'>
+                        <h2>${list[i].title}</h2>
+                        <span class='requester'><b>Added by:</b> ${list[i].requestedBy}</span>
+                    </div>
+                </a>`;
+    
+            document.querySelector(".__song-queue").innerHTML = html;
+        }
+    });
 
     queueSong = (link) => socket.emit("queue", link);
 }
