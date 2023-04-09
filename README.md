@@ -8,7 +8,10 @@ Running your own Jukebox instance requires:
 - (optional) [PNPM package manager](https://pnpm.io/)
 
 To start, clone the repository using:
-```git clone https://github.com/leafeling```
+
+```
+git clone https://github.com/leafeling/jukebox.git
+```
 
 Then create your own [`config.json`](./config.example.json) and [`.env`](./.env.example) files, based off their respective examples. These are needed to configure your instance's port, settings, theme and tokens used for queue providers.
 
