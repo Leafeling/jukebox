@@ -18,6 +18,12 @@ Then create your own [`config.json`](./config.example.json) and [`.env`](./.env.
 Add files matching the `icon` and `logo` files to the `/assets` folder with the file paths you configured in your `config.json`.
 
 After you're done configuring, launch your instance with:
-`npm run start` or `pnpm start`
+```
+npm run start
+```
+or, when using PNPM,
+```
+pnpm start
+```
 
 Jukebox binds to `0.0.0.0:3000` by default.
